@@ -72,7 +72,7 @@ left, right = st.columns(2)
 
 
 if left.button("Go back", width="stretch", type='primary'):
-    st.switch_page("app.py")
+    pass
 
 
 right.button("continue", width="stretch")
