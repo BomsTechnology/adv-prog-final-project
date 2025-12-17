@@ -2,6 +2,8 @@
 import streamlit as st
 import pandas as pd
 import datetime
+import requests
+API_BASE = "http://127.0.0.1:8000"
 
 #important!
 # left, middle = st.columns(2)
@@ -14,9 +16,9 @@ st.title("Select a room")
 
 #try thing = st.header
 
-st.header("Student information", divider=True)
+st.header("Event information", divider=True)
 
-name = st.text_input("Enter student name")
+name = st.text_input("Enter event name")
 
 attendees = st.number_input("number of attendees", format="%1d", step=1)
 
@@ -38,8 +40,16 @@ st.header("Available rooms", divider=True)
 #this is placeholder
 available_rooms = []
 
-for i in range(20):
-    available_rooms.append(i) 
+if available_rooms:
+    option = st.selectbox(
+        "Select an available room",
+        available_rooms,
+        format_func=lambda r: f"Room {r['id']} | cap: {r['capacity']} | {', '.join(r['equipments'])}"
+    )
+
+    df = pd.DataFrame(available_rooms)
+    st.dataframe(df, use_container_width=True)
+
 
 #st.write(available_rooms[50])
 
