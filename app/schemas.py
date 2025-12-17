@@ -3,7 +3,6 @@ from typing import List
 from datetime import datetime
 
 class RoomCreate(BaseModel):
-    id: int
     name: str
     capacity: int
     equipments: List[str]

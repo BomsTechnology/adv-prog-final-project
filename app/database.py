@@ -32,7 +32,7 @@ class Database:
         # Create rooms table
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS rooms (
-                id INTEGER PRIMARY KEY,
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
                 capacity INTEGER NOT NULL,
                 equipments TEXT NOT NULL
@@ -42,7 +42,7 @@ class Database:
         # Create events table
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS events (
-                id INTEGER PRIMARY KEY,
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
                 attendees INTEGER NOT NULL,
                 required_equipments TEXT NOT NULL
@@ -71,9 +71,9 @@ class Database:
         cursor = conn.cursor()
         
         cursor.execute('''
-            INSERT OR REPLACE INTO rooms (id, name, capacity, equipments)
-            VALUES (?, ?, ?, ?)
-        ''', (room.id, room.name, room.capacity, json.dumps(room.equipments)))
+            INSERT OR REPLACE INTO rooms (name, capacity, equipments)
+            VALUES (?, ?, ?)
+        ''', (room.name, room.capacity, json.dumps(room.equipments)))
         
         conn.commit()
         self.close()
@@ -84,9 +84,9 @@ class Database:
         cursor = conn.cursor()
         
         cursor.execute('''
-            INSERT OR REPLACE INTO events (id, name, attendees, required_equipments)
-            VALUES (?, ?, ?, ?)
-        ''', (event.id, event.name, event.attendees, json.dumps(event.required_equipments)))
+            INSERT OR REPLACE INTO events (name, attendees, required_equipments)
+            VALUES (?, ?, ?)
+        ''', (event.name, event.attendees, json.dumps(event.required_equipments)))
         
         conn.commit()
         self.close()
@@ -97,9 +97,9 @@ class Database:
         cursor = conn.cursor()
         
         cursor.execute('''
-            INSERT INTO bookings (room_id, event_id, start_date, end_date)
-            VALUES (?, ?, ?, ?)
-        ''', (booking.room_id, booking.event_id, 
+            INSERT INTO bookings ( event_id, start_date, end_date)
+            VALUES ( ?, ?, ?)
+        ''', (booking.event_id, 
               booking.start_date.isoformat(), booking.end_date.isoformat()))
         
         booking_id = cursor.lastrowid
