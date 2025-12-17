@@ -59,6 +59,9 @@ option = st.selectbox(
     "Select an available room",
     available_rooms,
 )
+if option == None:
+    st.warning("Please select a room")
+    errors = True
 
 data_df = pd.DataFrame(
     {
@@ -109,5 +112,7 @@ if right.button("Continue", type="primary", width="stretch") and not errors and 
         st.json(response.json())
     else:
         st.error(response.text)
+else:
+    st.error("Please ensure all sections are filled out before continuing")
 
 
