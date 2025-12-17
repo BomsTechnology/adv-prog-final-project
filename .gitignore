@@ -1,0 +1,9 @@
+# Python virtual environment directories
+venv/
+.venv/
+
+# Other common files to ignore
+*.pyc
+__pycache__/
+.env
+pip-selfcheck.json
