@@ -1,12 +1,32 @@
 # run with streamlit run your_script.py [-- script args]
 import streamlit as st
 import pandas as pd
+import datetime
 
 #important!
 # left, middle = st.columns(2)
 # left.button("Say hello", type="secondary")
 
 st.title("Select a room")
+
+#try thing = st.header
+
+st.header("Student information", divider=True)
+
+name = st.text_input("Enter student name")
+
+attendees = st.number_input("number of attendees", format="%1d", step=1)
+if attendees == 0:
+    st.error("Please enter more then 0 attendees")
+
+requiredEqiup = st.text_input("Enter required equipment")
+
+startDate = st.date_input("Start date", datetime.date(2025, 6, 7))
+endDate = st.date_input("End date", datetime.date(2026, 6, 7))
+
+
+
+
 st.header("Available rooms", divider=True)
 
 #this is placeholder
