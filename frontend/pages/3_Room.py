@@ -109,7 +109,7 @@ if rooms:
                 df['end_date'] = pd.to_datetime(df['end_date'])
                 df = df[['id', 'start_date', 'end_date', 'duration_hours']]
                 df.columns = ['ID', 'Début', 'Fin', 'Durée (h)']
-                st.dataframe(df, use_container_width=True)
+                st.dataframe(df)
             else:
                 st.info("Aucune réservation pour cette salle")
             
