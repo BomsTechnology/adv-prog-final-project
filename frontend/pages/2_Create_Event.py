@@ -15,13 +15,9 @@ st.set_page_config(page_title="create")
 errors = False
 
 st.title("Select a room")
-
 #try thing = st.header
-
 st.header("Event information", divider=True)
-
 name = st.text_input("Enter event name")
-
 attendees = st.number_input("number of attendees", format="%1d", step=1)
 
 #give error if 0
