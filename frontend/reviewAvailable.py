@@ -12,8 +12,8 @@ st.header("Available rooms", divider=True)
 #this is placeholder
 available_rooms = []
 
-for i in range(100):
-    available_rooms.append(i) 
+for i in range(99):
+    available_rooms.append(i+1) 
 
 #st.write(available_rooms[50])
 
@@ -23,7 +23,7 @@ for i in range(100):
 
 data_df = pd.DataFrame(
     {
-        "price": available_rooms,
+        "available rooms": available_rooms,
     }
 )
 
@@ -41,4 +41,9 @@ st.data_editor(
     },
     hide_index=True,
 )
+
+left, right = st.columns(2)
+
+left.button("Go back", width="stretch", type='primary')
+right.button("continue", width="stretch")
 
