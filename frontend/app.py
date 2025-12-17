@@ -45,4 +45,4 @@ else:
 
 
 if st.button("Book a Room"):
-    st.session_state.page = ""
+    st.session_state.page = ("reviewAvailable.py")
