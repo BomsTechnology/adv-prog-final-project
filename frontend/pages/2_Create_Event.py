@@ -5,6 +5,8 @@ import datetime
 import requests
 API_BASE = "http://127.0.0.1:8000"
 
+st.set_page_config(page_title="create")
+
 #important!
 # left, middle = st.columns(2)
 # left.button("Say hello", type="secondary")
