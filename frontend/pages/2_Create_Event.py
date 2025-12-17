@@ -1,33 +1,79 @@
+# run with streamlit run your_script.py [-- script args]
 import streamlit as st
-import time
-import numpy as np
+import pandas as pd
+import datetime
 
-st.set_page_config(page_title="Plotting Demo", page_icon="📈")
+#important!
+# left, middle = st.columns(2)
+# left.button("Say hello", type="secondary")
 
-st.markdown("# Plotting Demo")
-st.sidebar.header("Plotting Demo")
-st.write(
-    """This demo illustrates a combination of plotting and animation with
-Streamlit. We're generating a bunch of random numbers in a loop for around
-5 seconds. Enjoy!"""
+st.title("Select a room")
+
+#try thing = st.header
+
+st.header("Student information", divider=True)
+
+name = st.text_input("Enter student name")
+
+attendees = st.number_input("number of attendees", format="%1d", step=1)
+if attendees == 0:
+    st.error("Please enter more then 0 attendees")
+
+requiredEqiup = st.text_input("Enter required equipment")
+
+startDate = st.date_input("Start date", datetime.date(2025, 6, 7))
+endDate = st.date_input("End date", datetime.date(2026, 6, 7))
+
+
+
+
+st.header("Available rooms", divider=True)
+
+#this is placeholder
+available_rooms = []
+
+for i in range(20):
+    available_rooms.append(i) 
+
+#st.write(available_rooms[50])
+
+#event
+#time
+#capasity
+
+option = st.selectbox(
+    "Select an available room",
+    available_rooms,
 )
 
-progress_bar = st.sidebar.progress(0)
-status_text = st.sidebar.empty()
-last_rows = np.random.randn(1, 1)
-chart = st.line_chart(last_rows)
+data_df = pd.DataFrame(
+    {
+        "Search availibility": available_rooms,
+    }
+)
 
-for i in range(1, 101):
-    new_rows = last_rows[-1, :] + np.random.randn(5, 1).cumsum(axis=0)
-    status_text.text("%i%% Complete" % i)
-    chart.add_rows(new_rows)
-    progress_bar.progress(i)
-    last_rows = new_rows
-    time.sleep(0.05)
+st.data_editor(
+    data_df,
+    column_config={
+        "Available rooms": st.column_config.NumberColumn(
+            "Available rooms",
+            help="The rooms available",
+            min_value=0,
+            max_value=1000,
+            step=1,
+            format="%d",
+        )
+    },
+    hide_index=True,
+    disabled=True,
+)
 
-progress_bar.empty()
+left, right = st.columns(2)
 
-# Streamlit widgets automatically run the script from top to bottom. Since
-# this button is not connected to any other logic, it just causes a plain
-# rerun.
-st.button("Re-run")
+
+if left.button("Go back", width="stretch", type='primary'):
+    pass
+
+
+right.button("continue", width="stretch")
+
