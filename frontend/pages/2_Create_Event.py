@@ -7,6 +7,9 @@ import datetime
 # left, middle = st.columns(2)
 # left.button("Say hello", type="secondary")
 
+#Boolean for checking if there are any errors
+errors = False
+
 st.title("Select a room")
 
 #try thing = st.header
@@ -16,8 +19,11 @@ st.header("Student information", divider=True)
 name = st.text_input("Enter student name")
 
 attendees = st.number_input("number of attendees", format="%1d", step=1)
+
+#give error if 0
 if attendees == 0:
     st.error("Please enter more then 0 attendees")
+    errors = True
 
 requiredEqiup = st.text_input("Enter required equipment")
 
@@ -75,5 +81,9 @@ if left.button("Go back", width="stretch", type='primary'):
     pass
 
 
-right.button("continue", width="stretch")
+if right.button("continue", width="stretch") and errors == False:
+    #continue code goes here
+    pass
+else:
+    st.warning("Please fix all errors before continuing")
 
