@@ -93,9 +93,25 @@ if left.button("Go back", width="stretch", type='primary'):
     pass
 
 
-if right.button("continue", width="stretch") and errors == False:
-    #continue code goes here
-    pass
-else:
-    st.warning("Please fix all errors before continuing")
+if right.button("Continue", type="primary", width="stretch") and not errors and available_rooms:
+    booking_payload = {
+        "room_id": option["id"],
+        "event_name": name,
+        "attendees": int(attendees),
+        "required_equipments": option["equipments"],
+        "start_date": startDate.isoformat(),
+        "end_date": endDate.isoformat(),
+    }
+
+    response = requests.post(
+        f"{API_BASE}/bookings",
+        json=booking_payload,
+    )
+
+    if response.status_code == 201:
+        st.success("Booking created successfully")
+        st.json(response.json())
+    else:
+        st.error(response.text)
+
 
