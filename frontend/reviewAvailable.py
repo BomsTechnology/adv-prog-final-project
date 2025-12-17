@@ -15,32 +15,28 @@ available_rooms = []
 for i in range(100):
     available_rooms.append(i) 
 
-st.write(available_rooms[50])
+#st.write(available_rooms[50])
+
+#event
+#time
+#capasity
 
 data_df = pd.DataFrame(
     {
-        "rooms": [
-            "Data Exploration",
-            "Data Visualization",
-            "LLM",
-            "Data Exploration",
-        ],
+        "price": available_rooms,
     }
 )
 
 st.data_editor(
     data_df,
     column_config={
-        "category": st.column_config.SelectboxColumn(
-            "App Category",
-            help="The category of the app",
-            width="medium",
-            options=[
-                "Data Exploration",
-                "Data Visualization",
-                "LLM",
-            ],
-            required=True,
+        "Available rooms": st.column_config.NumberColumn(
+            "Available rooms",
+            help="The rooms available",
+            min_value=0,
+            max_value=1000,
+            step=1,
+            format="%d",
         )
     },
     hide_index=True,
