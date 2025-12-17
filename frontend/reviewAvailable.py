@@ -32,8 +32,8 @@ st.header("Available rooms", divider=True)
 #this is placeholder
 available_rooms = []
 
-for i in range(99):
-    available_rooms.append(i+1) 
+for i in range(20):
+    available_rooms.append(i) 
 
 #st.write(available_rooms[50])
 
@@ -48,7 +48,7 @@ option = st.selectbox(
 
 data_df = pd.DataFrame(
     {
-        "available rooms": available_rooms,
+        "Search availibility": available_rooms,
     }
 )
 
@@ -65,6 +65,7 @@ st.data_editor(
         )
     },
     hide_index=True,
+    disabled=True,
 )
 
 left, right = st.columns(2)
