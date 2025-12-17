@@ -4,8 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
 from typing import List
 from app.schemas import AvailabilityCheck, BookingResponse, RoomCreate, RoomResponse, BookingCreate
-from scheduler import Scheduler
-from models import Room, Event, Booking
+from app.scheduler import Scheduler
+from app.models import Room, Event, Booking
 
 app = FastAPI(title="Booking System API", version="1.0.0")
 

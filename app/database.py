@@ -2,7 +2,7 @@ import sqlite3
 import json
 from datetime import datetime
 from typing import List, Optional
-from models import Room, Event, Booking
+from app.models import Room, Event, Booking
 
 
 class Database:

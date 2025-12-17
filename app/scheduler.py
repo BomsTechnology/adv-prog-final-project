@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
-from models import Room, Event, Booking
-from database import Database
+from app.models import Room, Event, Booking
+from app.database import Database
 
 
 class Scheduler:
