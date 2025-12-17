@@ -41,6 +41,11 @@ for i in range(99):
 #time
 #capasity
 
+option = st.selectbox(
+    "Select an available room",
+    available_rooms,
+)
+
 data_df = pd.DataFrame(
     {
         "available rooms": available_rooms,
