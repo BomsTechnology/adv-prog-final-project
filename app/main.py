@@ -21,25 +21,30 @@ app.add_middleware(
 # Initialiser le scheduler
 scheduler = Scheduler("booking_system.db")
 
-
-
-
 # ==================== Room Endpoints ====================
 
 @app.post("/rooms", response_model=RoomResponse, status_code=201)
 def create_room(room: RoomCreate):
     """Créer une nouvelle salle"""
     try:
-        new_room = Room(room.id, room.name, room.capacity, room.equipments)
+        new_room = Room(0, room.name, room.capacity, room.equipments)
         scheduler.add_room(new_room)
-        return room.dict()
+        
+        # new_room.id contient maintenant l'ID généré
+        return {
+            "id": new_room.id,
+            "name": new_room.name,
+            "capacity": new_room.capacity,
+            "equipments": new_room.equipments
+        }
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 @app.get("/rooms", response_model=List[RoomResponse])
 def get_all_rooms():
     """Récupérer toutes les salles"""
-    rooms = scheduler.get_all_rooms()
+    rooms = scheduler.db.get_all_rooms()
+    print(rooms)
     return [
         {
             "id": r.id,
@@ -53,7 +58,7 @@ def get_all_rooms():
 @app.get("/rooms/{room_id}", response_model=RoomResponse)
 def get_room(room_id: int):
     """Récupérer une salle spécifique"""
-    room = scheduler.get_room(room_id)
+    room = scheduler.get_room_by_id(room_id)
     if not room:
         raise HTTPException(status_code=404, detail=f"Room {room_id} not found")
     return {
@@ -201,7 +206,7 @@ def check_room_availability(
 def get_room_schedule(room_id: int):
     """Récupérer le planning d'une salle"""
     bookings = scheduler.get_room_schedule(room_id)
-    room = scheduler.get_room(room_id)
+    room = scheduler.get_room_by_id(room_id)
     
     if not room:
         raise HTTPException(status_code=404, detail=f"Room {room_id} not found")
