@@ -1,28 +1,48 @@
 import streamlit as st
+from datetime import time
 
-st.set_page_config(
-    page_title="Hello",
-    page_icon="👋",
-)
+#sample data
+rooms = [
+    {"id": "R101", "capacity": 40, "equipment": ["projector", "whiteboard"]},
+    {"id": "R202", "capacity": 25, "equipment": ["whiteboard"]},
+    {"id": "R303", "capacity": 60, "equipment": ["projector"]}
+]
 
-st.write("# Welcome to Streamlit! 👋")
+bookings = [
+    {
+        "room_id": "R101",
+        "event": "Coding Club",
+        "start": time(10, 0),
+        "end": time(12, 0)
+    },
+    {
+        "room_id": "R202",
+        "event": "Math Society",
+        "start": time(11, 0),
+        "end": time(13, 0)
+    }
+]
 
-st.sidebar.success("Select a demo above.")
 
-st.markdown(
-    """
-    Streamlit is an open-source app framework built specifically for
-    Machine Learning and Data Science projects.
-    **👈 Select a demo from the sidebar** to see some examples
-    of what Streamlit can do!
-    ### Want to learn more?
-    - Check out [streamlit.io](https://streamlit.io)
-    - Jump into our [documentation](https://docs.streamlit.io)
-    - Ask a question in our [community
-        forums](https://discuss.streamlit.io)
-    ### See more complex demos
-    - Use a neural net to [analyze the Udacity Self-driving Car Image
-        Dataset](https://github.com/streamlit/demo-self-driving)
-    - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-"""
-)
+
+st.set_page_config(page_title="Smart Campus Scheduler", layout="wide")
+st.title("Smart Campus Event Scheduler", text_alignment="center")
+
+st.subheader("Rooms Currently Booked", text_alignment="center")
+
+if not bookings:
+    st.success("All rooms are currently available")
+else:
+    for booking in bookings:
+        room = next(r for r in rooms if r["id"] == booking["room_id"])
+
+        with st.container(border=True):
+            st.markdown(f"### {booking['event'].upper()}")
+            st.write(f"**Room:** {room['id']}")
+            st.write(f"**Time:** {booking['start']} – {booking['end']}")
+            st.write(f"**Capacity:** {room['capacity']}")
+            st.write(f"**Equipment:** {', '.join(room['equipment'])}")
+
+
+if st.button("Book a Room"):
+    st.session_state.page = ("reviewAvailable.py")
