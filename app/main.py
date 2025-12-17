@@ -74,7 +74,7 @@ def main():
         end_date=datetime(2024, 12, 20, 12, 0)
     )
     
-    # Find available rooms
+
     print("\n" + "="*60)
     print("FINDING AVAILABLE ROOMS")
     print("="*60 + "\n")
