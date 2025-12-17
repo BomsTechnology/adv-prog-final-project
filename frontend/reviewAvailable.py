@@ -70,6 +70,10 @@ st.data_editor(
 
 left, right = st.columns(2)
 
-left.button("Go back", width="stretch", type='primary')
+
+if left.button("Go back", width="stretch", type='primary'):
+    st.switch_page("app.py")
+
+
 right.button("continue", width="stretch")
 
